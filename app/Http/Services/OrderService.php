@@ -28,4 +28,9 @@ class OrderService
         return $this->orderRepository->getOrder($orderId);
     }
 
+    public function deleteOrder($orderId)
+    {
+        $this->orderRepository->deleteOrder($orderId);
+    }
+
 }

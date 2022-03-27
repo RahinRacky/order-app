@@ -48,4 +48,9 @@ class OrderController extends Controller
         $order = $this->orderService->getOrder($orderId);
         return response()->json($order, 200);
     }
+
+    public function deleteOrder($orderId)
+    {
+        return response()->json('Success', 200);
+    }
 }
