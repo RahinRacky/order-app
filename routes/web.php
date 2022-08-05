@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,14 +17,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
-Route::get('/saveOrder', [App\Http\Controllers\OrderController::class, 'saveOrder'])->name('saveOrder');
-Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('user');
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/home', [ProductController::class, 'home'])->name('home');
+    Route::get('/product-category/{catId}', [ProductController::class, 'categoryProducts']);
+    Route::get('product/addToCart/{catId}/{productId}', [ProductController::class, 'addToCart']);
+    Route::get('/cart', [CartController::class, 'getCart'])->name('cart');
+    Route::get('/cart/add/{productId}', [CartController::class, 'addToCart']);
+    Route::get('/cart/reduce/{productId}', [CartController::class, 'reduceToCart']);
+    Route::get('/cart/remove/{productId}', [CartController::class, 'removeFromCart']);
+    Route::get('/cart/checkout', [CartController::class, 'checkout']);
+    Route::resource('/orders', OrderController::class);
+});

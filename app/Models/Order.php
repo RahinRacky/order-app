@@ -9,16 +9,12 @@ class Order extends Model
 {
     use HasFactory;
 
-    public function userDetail()
-    {
-        return $this->hasOne(\App\Models\User::class, 'id', 'userId');
-    }
+    protected $fillable = [
+        'user_id', 'total'
+    ];
 
     public function orderDetails()
     {
-        return $this->hasMany(\App\Models\OrderDetail::class, 'id', 'orderId');
+        return $this->hasMany(OrderDetail::class, 'order_id');
     }
 }
-
-
-

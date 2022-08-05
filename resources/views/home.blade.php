@@ -1,40 +1,24 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
-    <!-- Sidebar -->
-    @include('sidenavbar')
-
+    @include('layouts.sidebar')
     <div class="row justify-content-center">
-
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ "Orders" }}</div>
-                <div class="card-body">
-                    <h1 class="text-center">{{ $orders ?? 0  }}</h1>
+                <div class="card-header">{{ __('Welcome ' . Auth::user()->name) }}</div>
+
+                <div class="card-body row text-center">
+                    @foreach ($categories as $category)
+                    <div class="col-md-6">
+                        <a href="{{ url("/product-category/" . $category->id)  }}" class="text-decoration-none">
+                            <img src="{{ asset($category->product_category_image)}}" alt="{{ $category->product_category }}" style="width: 200px;height:200px">
+                            <h2>{{ $category->product_category }}</h2>
+                        </a>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">{{ "Products" }}</div>
-                <div class="card-body">
-                    <h1 class="text-center">{{ $products ?? 0  }}</h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">{{ "Users" }}</div>
-                <div class="card-body">
-                    <h1 class="text-center">{{ $users ?? 0  }}</h1>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </div>
 @endsection

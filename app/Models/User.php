@@ -21,7 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'companyId',
     ];
 
     /**
@@ -42,10 +41,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-
-    public function companyDetail()
-    {
-        return $this->hasOne(\App\Models\Company::class, 'id', 'companyId');
-    }
 }
